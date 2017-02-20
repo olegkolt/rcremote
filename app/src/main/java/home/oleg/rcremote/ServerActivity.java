@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import de.nitri.gauge.Gauge;
+import home.oleg.rcremote.server.Beeper;
 import home.oleg.rcremote.server.WebServer;
 
 public class ServerActivity extends AppCompatActivity {
@@ -17,6 +18,8 @@ public class ServerActivity extends AppCompatActivity {
 
     private PowerManager.WakeLock wakeLock;
 
+    private Beeper beeper;
+
 
     /** Called when the activity is first created. */
 
@@ -24,6 +27,7 @@ public class ServerActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server);
+        beeper = new Beeper();
 
         indicator = (Gauge) findViewById(R.id.gauge);
 
@@ -56,6 +60,7 @@ public class ServerActivity extends AppCompatActivity {
         x = x * -1;
 
         indicator.setValue(x);
+        beeper.onUpdate(x);
     }
 
     Handler handler = new Handler() {

@@ -1,5 +1,6 @@
 package home.oleg.rcremote;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.PowerManager;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 
 import home.oleg.rcremote.client.SensorListener;
 import home.oleg.rcremote.client.UploadRunnable;
+import home.oleg.rcremote.client.UploadService;
 import home.oleg.rcremote.server.WebServer;
 
 public class ClientActivity extends AppCompatActivity {
@@ -21,8 +23,6 @@ public class ClientActivity extends AppCompatActivity {
     private Button startButton;
     private Button stopButton;
     private EditText serverAddressEditText;
-
-    private Thread uploadThread;
 
     private SensorManager sensorManager;
 
@@ -44,10 +44,12 @@ public class ClientActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 isClientActive = true;
-                uploadThread = new Thread(new UploadRunnable(buildServerAddress()));
-                uploadThread.start();
                 startButton.setEnabled(false);
                 stopButton.setEnabled(true);
+
+                Intent intent = new Intent(ClientActivity.this, UploadService.class);
+                intent.putExtra(UploadService.SERVER_ADDRESS_BUNDLE_KEY, buildServerAddress());
+                startService(intent);
             }
         });
 
@@ -56,8 +58,9 @@ public class ClientActivity extends AppCompatActivity {
             public void onClick(View view) {
                 isClientActive = false;
                 startButton.setEnabled(true);
-                uploadThread.interrupt();
                 stopButton.setEnabled(false);
+
+                stopService(new Intent(ClientActivity.this, UploadService.class));
             }
         });
     }
@@ -81,13 +84,6 @@ public class ClientActivity extends AppCompatActivity {
                 "MyWakelockTag");
         wakeLock.acquire();
     }
-
-//    @Override
-//    protected void onPause() {
-//        // unregister listener
-//        super.onPause();
-//        sensorManager.unregisterListener(this);
-//    }
 
     @Override
     protected void onStop() {

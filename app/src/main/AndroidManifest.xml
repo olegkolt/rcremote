@@ -25,7 +25,7 @@
             android:screenOrientation="portrait" />
 
         <service
-            android:name="home.oleg.rcremote.client.SensorService"
+            android:name="home.oleg.rcremote.client.UploadService"
             android:enabled="true"
             android:exported="true"></service>
     </application>
