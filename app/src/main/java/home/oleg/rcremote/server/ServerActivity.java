@@ -1,4 +1,4 @@
-package home.oleg.rcremote;
+package home.oleg.rcremote.server;
 
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import de.nitri.gauge.Gauge;
+import home.oleg.rcremote.R;
 import home.oleg.rcremote.server.Beeper;
 import home.oleg.rcremote.server.WebServer;
 

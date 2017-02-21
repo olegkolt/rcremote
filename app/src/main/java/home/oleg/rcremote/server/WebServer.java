@@ -15,8 +15,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 
-import home.oleg.rcremote.ServerActivity;
-
 /**
  * Created by oleg on 2/16/17.
  */

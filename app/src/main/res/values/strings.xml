@@ -7,4 +7,5 @@
 
     <string name="start_button">Start</string>
     <string name="stop_button">Stop</string>
+    <string name="upload_notification">Data sending has been started</string>
 </resources>

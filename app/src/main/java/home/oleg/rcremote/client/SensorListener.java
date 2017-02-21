@@ -4,8 +4,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
-import home.oleg.rcremote.ClientActivity;
-
 /**
  * Created by oleg on 2/17/17.
  */
